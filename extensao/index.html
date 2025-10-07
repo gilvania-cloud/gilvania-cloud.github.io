@@ -23,7 +23,7 @@
     </style>
 </head>
 <body class="bg-gray-100 text-[#073B4C]">
-
+<div id="cartaz">
     <header class="bg-[#118AB2] text-white text-center py-12 px-4">
         <h1 class="text-4xl md:text-5xl font-bold mb-2">📜 Seus Direitos na Palma da Mão! 🤙</h1>
         <p class="text-lg md:text-xl max-w-3xl mx-auto">Um guia interativo da Constituição para você que está construindo o futuro.</p>
@@ -127,7 +127,8 @@
     loading="lazy"
   />
 </section>
-
+</div>
+    <button id="baixar">Baixar PDF</button>
     <footer class="bg-[#073B4C] text-white text-center py-8 px-4 mt-8">
         <p class="font-bold text-xl">Conhecer seus direitos é o primeiro passo para garantir que eles sejam respeitados!</p>
     </footer>
@@ -136,6 +137,21 @@
         // Charts removed as per request.
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  // roda após o HTML ter sido carregado, pois está no final do body
+  document.getElementById('baixar').addEventListener('click', () => {
+    const el = document.getElementById('cartaz');
+    html2pdf().from(el).set({
+      margin: 10,
+      filename: 'cartaz.pdf',
+      image: { type: 'jpeg', quality: 0.95 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a3', orientation: 'portrait' }
+    }).save();
+  });
+</script>
 </body>
 </html>
 
